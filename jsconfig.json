@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/components/*": ["components/*"],
+      "@/mongoose/*": ["mongoose/*"],
+      "@/public/*": ["public/*"]
+    }
+  }
+}
