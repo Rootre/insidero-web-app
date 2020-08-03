@@ -4,7 +4,8 @@
     "paths": {
       "@/components/*": ["components/*"],
       "@/mongoose/*": ["mongoose/*"],
-      "@/public/*": ["public/*"]
+      "@/public/*": ["public/*"],
+      "@/server/*": ["server/*"]
     }
   }
 }

@@ -12,8 +12,18 @@ yarn dev
 
 ## TechStack
 
-- Next.js
-- MongoDB & Mongoose
-- Insidero API
-- react-jsonschema-form
+- Infrastructure
+  - [Docker](https://www.docker.com/)
+- Framework
+  - [Next.js](https://nextjs.org/)
+- Database
+  - [MongoDB](https://www.mongodb.com/) & [mongoose](https://mongoosejs.com/)
+- Data source
+  - [Insidero API](https://www.insidero.com/)
+- Forms
+  - [react-jsonschema-form](https://github.com/rjsf-team/react-jsonschema-form)
+- Styling
+  - [emotion](https://github.com/emotion-js/emotion) & [facepaint](https://github.com/emotion-js/facepaint)
+  
+
 
