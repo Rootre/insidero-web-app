@@ -1,0 +1,19 @@
+{
+  "activeTitle": "Active",
+  "title": "Search form",
+  "description": "Find your perfect real estate",
+  "offerTitle": "Looking for",
+  "offerSell": "Sell",
+  "offerRent": "Rent",
+  "countryTitle": "Country",
+  "typeTitle": "Real estate type",
+  "typeFlat": "Flat",
+  "typeHouse": "House",
+  "typeLand": "Land",
+  "typeCommercial": "Commercial",
+  "priceSellMinTitle": "Price from",
+  "priceSellMaxTitle": "Price to",
+  "floorTitle": "Floor",
+  "roomTitle": "Number of rooms in unit",
+  "sendButton": "Search"
+}

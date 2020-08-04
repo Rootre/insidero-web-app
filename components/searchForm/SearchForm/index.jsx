@@ -1,19 +1,36 @@
-import Form from '@rjsf/core'
+import { useMutation } from 'react-query'
 
-import schema from '../schema'
-import uiSchema from '../uiSchema'
+import { searchOffer } from '@/consts/urls'
 
-const log = (type) => console.log.bind(console, type)
+import OfferList from '@/components/searchForm/OfferList'
+import Form from '@/components/searchForm/Form'
+import { useCallback, useState } from 'react'
 
-function SearchForm () {
+const fetchOffers = data => {
+  const getParams = new URLSearchParams(data).toString()
+
+  return fetch(`${searchOffer}?${getParams}`).then(data => data.json())
+}
+
+const SearchForm = () => {
+  const [formData, setFormData] = useState({})
+  const [mutate, {isLoading, data}] = useMutation(fetchOffers)
+  const onSubmit = useCallback(({ formData }) => {
+    setFormData(formData)
+    return mutate(formData)
+  }, [])
+
   return (
-    <Form
-      schema={schema}
-      uiSchema={uiSchema}
-      onChange={log("changed")}
-      onSubmit={log("submitted")}
-      onError={log("errors")}
-    />
+    <>
+      <Form
+        onSubmit={onSubmit}
+        formData={formData}
+        isLoading={isLoading}
+      />
+      {data && data.results && (
+        <OfferList data={data.results}/>
+      )}
+    </>
   )
 }
 

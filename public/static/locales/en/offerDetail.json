@@ -1,0 +1,8 @@
+{
+  "type": "Real estate type",
+  "rooms": "Rooms",
+  "space": "Space",
+  "price": "Price",
+  "inactive": "Inactive",
+  "floor": "Floor"
+}

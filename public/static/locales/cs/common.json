@@ -1,0 +1,5 @@
+{
+  "h1": "Vítejte",
+  "currency": "Kč",
+  "error-with-status": "Vyskytla se chyba s kódem {{statusCode}}"
+}

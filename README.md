@@ -20,8 +20,10 @@ yarn dev
   - [MongoDB](https://www.mongodb.com/) & [mongoose](https://mongoosejs.com/)
 - Data source
   - [Insidero API](https://www.insidero.com/)
-- Forms
+- Form generator
   - [react-jsonschema-form](https://github.com/rjsf-team/react-jsonschema-form)
+- Translations
+  - [i18n](https://www.i18next.com/)
 - Styling
   - [emotion](https://github.com/emotion-js/emotion) & [facepaint](https://github.com/emotion-js/facepaint)
   

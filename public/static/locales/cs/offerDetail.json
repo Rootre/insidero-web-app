@@ -1,0 +1,8 @@
+{
+  "type": "Typ nemovitosti",
+  "rooms": "Dispozice",
+  "space": "Rozměry",
+  "price": "Cena",
+  "inactive": "Neaktivní",
+  "floor": "Patro"
+}

@@ -1,0 +1,19 @@
+{
+  "activeTitle": "Aktivní",
+  "title": "Vyhledávací formulář",
+  "description": "Najdi si nemovitost na míru",
+  "offerTitle": "Hledám",
+  "offerSell": "Prodej",
+  "offerRent": "Pronájem",
+  "countryTitle": "Stát",
+  "typeTitle": "Typ nemovitosti",
+  "typeFlat": "Byty",
+  "typeHouse": "Domy",
+  "typeLand": "Pozemky",
+  "typeCommercial": "Komerční",
+  "priceSellMinTitle": "Cena od",
+  "priceSellMaxTitle": "Cena do",
+  "floorTitle": "Patro",
+  "roomTitle": "Počet pokojů",
+  "sendButton": "Vyhledat"
+}

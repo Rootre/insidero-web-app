@@ -1,0 +1,1 @@
+export const searchOffer = `${process.env.NEXT_PUBLIC_INSIDERO_URI}/search/offer`
