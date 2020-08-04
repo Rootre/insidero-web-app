@@ -27,9 +27,7 @@ const SearchForm = () => {
         formData={formData}
         isLoading={isLoading}
       />
-      {data && data.results && (
-        <OfferList data={data.results}/>
-      )}
+      <OfferList data={data}/>
     </>
   )
 }

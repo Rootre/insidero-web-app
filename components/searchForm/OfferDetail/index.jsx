@@ -1,6 +1,10 @@
 import styled from '@emotion/styled'
 import getOr from 'lodash/fp/getOr'
 import flow from 'lodash/fp/flow'
+import WeekendIcon from '@material-ui/icons/Weekend'
+import ApartmentIcon from '@material-ui/icons/Apartment'
+import HomeIcon from '@material-ui/icons/Home'
+import SelectAllIcon from '@material-ui/icons/SelectAll'
 
 import { withTranslation } from '@/i18n/instance'
 import PriceComponent from '@/components/core/Price'
@@ -26,6 +30,13 @@ const getFullSpace = flow(getSpace, getOr('', 'room.full'))
 const getUsableSpace = flow(getSpace, getOr(0, 'usable.max'))
 const getPrice = getOr({}, 'price')
 
+const iconMap = {
+  flat: WeekendIcon,
+  house: HomeIcon,
+  land: SelectAllIcon,
+  commercial: ApartmentIcon,
+}
+
 function OfferDetail ({ data, t }) {
   const { general, price } = data
   const { active, url, offer, type } = general
@@ -39,12 +50,14 @@ function OfferDetail ({ data, t }) {
     ? price[offer].current
     : 0
 
+  const Icon = iconMap.hasOwnProperty(type) ? iconMap[type] : null
+
   return (
     <Wrapper active={active}>
       {!active && <Inactive>{t('inactive')}</Inactive>}
       <dl>
         <dt>{t('type')}</dt>
-        <dd>{t(`offerDetailType:${type}`)}</dd>
+        <dd><Icon color={'primary'}/> {t(`offerDetailType:${type}`)}</dd>
         <dt>{t('floor')}</dt>
         <dd>{floor}</dd>
         <dt>{t('rooms')}</dt>
