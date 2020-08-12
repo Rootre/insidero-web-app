@@ -1,17 +1,9 @@
-const countries = [
-  'Česko',
-  'Polsko',
-  'Slovensko',
-  'Německo',
-]
-const countryValues = Array.from(Array(countries.length), (_, i) => i + 1)
-
-const country = t => ({
+const country = (t, {countries}) => ({
   type: 'number',
   title: t('countryTitle'),
   default: 1,
-  enum: countryValues,
-  enumNames: countries
+  enum: countries.map(({general: {id}}) => id),
+  enumNames: countries.map(({general: {name}}) => name),
 })
 
 export default country

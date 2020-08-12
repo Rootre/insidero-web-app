@@ -19,11 +19,15 @@ const SearchForm = () => {
     setFormData(formData)
     return mutate(formData)
   }, [])
+  const onChange = useCallback(({ formData }) => {
+    setFormData(formData)
+  }, [])
 
   return (
     <>
       <Form
         onSubmit={onSubmit}
+        onChange={onChange}
         formData={formData}
         isLoading={isLoading}
       />

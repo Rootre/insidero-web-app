@@ -6,9 +6,10 @@ import offer from './params/offer'
 import priceSellMin from './params/priceSellMin'
 import priceSellMax from './params/priceSellMax'
 import room from './params/room'
+import region from './params/region'
 import type from './params/type'
 
-const schema = t => ({
+const schema = (t, data) => ({
   title: t('title'),
   description: t('description'),
   type: 'object',
@@ -19,7 +20,8 @@ const schema = t => ({
     active: active(t),
     type: type(t),
     offer: offer(t),
-    country: country(t),
+    country: country(t, data),
+    region: region(t, data),
     limit,
     priceSellMin: priceSellMin(t),
     priceSellMax: priceSellMax(t),

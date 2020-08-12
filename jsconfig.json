@@ -3,12 +3,14 @@
     "baseUrl": ".",
     "paths": {
       "@/consts/*": ["consts/*"],
+      "Contexts/*": ["contexts/*"],
       "@/prototypes/*": ["prototypes/*"],
       "@/i18n/*": ["i18n/*"],
       "@/components/*": ["components/*"],
       "@/mongoose/*": ["mongoose/*"],
       "@/public/*": ["public/*"],
-      "@/server/*": ["server/*"]
+      "@/server/*": ["server/*"],
+      "Utils/*": ["utils/*"]
     }
   }
 }
