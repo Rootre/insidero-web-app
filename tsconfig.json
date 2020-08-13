@@ -17,15 +17,17 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "baseUrl": ".",
+    "baseUrl": "./src",
     "paths": {
-      "@/consts/*": ["consts/*"],
-      "@/prototypes/*": ["prototypes/*"],
-      "@/i18n/*": ["i18n/*"],
       "@/components/*": ["components/*"],
-      "@/mongoose/*": ["mongoose/*"],
-      "@/public/*": ["public/*"],
-      "@/server/*": ["server/*"]
+      "@/contexts/*": ["contexts/*"],
+      "@/consts/*": ["consts/*"],
+      "@/i18n/*": ["../i18n/*"],
+      "@/mongoose/*": ["../mongoose/*"],
+      "@/prototypes/*": ["prototypes/*"],
+      "@/public/*": ["../public/*"],
+      "@/server/*": ["../server/*"],
+      "@/utils/*": ["utils/*"]
     }
   },
   "include": [

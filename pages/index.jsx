@@ -5,7 +5,7 @@ import { withTranslation } from '@/i18n/instance'
 import SearchForm from '@/components/searchForm/SearchForm'
 import LanguageSwitcher from '@/components/header/LanguageSwitcher'
 import { listCountry, listRegion } from '@/consts/urls'
-import { CountryList, RegionList } from 'Contexts/codeLists'
+import { CountryList, RegionList } from '@/contexts/codeLists'
 
 function Home ({ countries, regions, t }) {
   return (

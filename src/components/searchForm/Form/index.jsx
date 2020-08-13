@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button'
 import schema from '@/components/searchForm/schema'
 import uiSchema from '@/components/searchForm/uiSchema'
 import { withTranslation } from '@/i18n/instance'
-import { CountryList, RegionList } from 'Contexts/codeLists'
+import { CountryList, RegionList } from '@/contexts/codeLists'
 
 const FormWrapper = styled.div`
   max-width: 500px;
