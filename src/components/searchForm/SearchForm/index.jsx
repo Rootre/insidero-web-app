@@ -27,14 +27,13 @@ const SearchForm = ({ t }) => {
 
   const onChange = useCallback(({ formData }) => {
     const currentRegions = getCurrentRegions(regions, formData)
+    const hasRegion = currentRegions.find(({general: {id}}) => formData.region === id)
 
     setFormData({
       ...formData,
-      region: currentRegions.length > 0 ? currentRegions[0].general.id : undefined,
+      region: hasRegion ? formData.region : currentRegions.length > 0 ? currentRegions[0].general.id : 0,
     })
   }, [])
-
-  const currentRegions = regions.filter(({ country: { id } }) => id === formData.country)
 
   const formSchema = schema(t, {
     countries,
