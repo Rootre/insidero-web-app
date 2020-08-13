@@ -12,9 +12,9 @@
   "typeHouse": "House",
   "typeLand": "Land",
   "typeCommercial": "Commercial",
-  "priceSellMinTitle": "Price from",
-  "priceSellMaxTitle": "Price to",
+  "priceSellTitle": "Price range",
   "floorTitle": "Floor",
   "roomTitle": "Number of rooms in unit",
+  "spaceTitle": "Space (m2)",
   "sendButton": "Search"
 }

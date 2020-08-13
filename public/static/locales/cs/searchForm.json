@@ -12,9 +12,9 @@
   "typeHouse": "Domy",
   "typeLand": "Pozemky",
   "typeCommercial": "Komerční",
-  "priceSellMinTitle": "Cena od",
-  "priceSellMaxTitle": "Cena do",
+  "priceSellTitle": "Cenové rozpětí",
   "floorTitle": "Patro",
   "roomTitle": "Počet pokojů",
+  "spaceTitle": "Výměra (m2)",
   "sendButton": "Vyhledat"
 }

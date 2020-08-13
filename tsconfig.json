@@ -26,6 +26,7 @@
       "@/mongoose/*": ["../mongoose/*"],
       "@/prototypes/*": ["prototypes/*"],
       "@/public/*": ["../public/*"],
+      "@/rjsf/*": ["../rjsf/*"],
       "@/server/*": ["../server/*"],
       "@/utils/*": ["utils/*"]
     }

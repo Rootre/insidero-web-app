@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "paths": {
+      "@/components/*": ["components/*"],
+      "@/contexts/*": ["contexts/*"],
+      "@/consts/*": ["consts/*"],
+      "@/i18n/*": ["../i18n/*"],
+      "@/mongoose/*": ["../mongoose/*"],
+      "@/prototypes/*": ["prototypes/*"],
+      "@/public/*": ["../public/*"],
+      "@/rjsf/*": ["../rjsf/*"],
+      "@/server/*": ["../server/*"],
+      "@/utils/*": ["utils/*"]
+    }
+  }
+}

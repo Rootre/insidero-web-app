@@ -1,40 +1,34 @@
-import { memo, useContext } from 'react'
+import { memo } from 'react'
 import Form from '@rjsf/material-ui'
 import styled from '@emotion/styled'
 import Button from '@material-ui/core/Button'
 
-import schema from '@/components/searchForm/schema'
 import uiSchema from '@/components/searchForm/uiSchema'
-import { withTranslation } from '@/i18n/instance'
-import { CountryList, RegionList } from '@/contexts/codeLists'
+import fields from '@/rjsf/fields'
 
-const FormWrapper = styled.div`
+const StyledForm = styled.div`
   max-width: 500px;
   margin: 2em auto;
 `
 
-const FormComponent = ({ formData, onSubmit, onChange, isLoading, t }) => {
-  const countries = useContext(CountryList)
-  const regions = useContext(RegionList)
+const FormComponent = ({ buttonText, formData, onSubmit, onChange, isLoading, schema }) => {
   // Unfortunately, ssr does not work for material-ui so far
   if (typeof window === 'undefined') {
     return null
   }
 
   return (
-    <FormWrapper>
+    <StyledForm>
       <Form
-        schema={schema(t, {
-          countries,
-          regions,
-          formData,
-        })}
+        schema={schema}
         uiSchema={uiSchema}
         formData={formData}
         onSubmit={onSubmit}
         onChange={onChange}
         liveValidate
         omitExtraData
+        showErrorList={false}
+        fields={fields}
       >
         <Button
           color={'primary'}
@@ -43,11 +37,11 @@ const FormComponent = ({ formData, onSubmit, onChange, isLoading, t }) => {
           type={'submit'}
           disabled={isLoading}
         >
-          {t('sendButton')}
+          {buttonText}
         </Button>
       </Form>
-    </FormWrapper>
+    </StyledForm>
   )
 }
 
-export default withTranslation('searchForm')(memo(FormComponent))
+export default memo(FormComponent)
