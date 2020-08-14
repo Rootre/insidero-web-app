@@ -23,7 +23,6 @@ const Region = ({ geo, selected, clickFactory }) => {
       open={showTooltip}
       placement={'top'}
       title={geo.properties.NAME_1}
-      disableFocusListener
     >
       <g>
         <StyledGeography
