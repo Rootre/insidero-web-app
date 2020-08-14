@@ -15,13 +15,16 @@ export default {
     'ui:widget': 'range',
   },
   gps: {
-    'ui:field': 'geoPosition'
+    'ui:field': 'geoPosition',
   },
   priceSell: {
     'ui:field': 'rangeSlider',
     'displayLabel': val => `${val / 1000000} mil.`,
   },
   space: {
-    'ui:field': 'rangeSlider'
-  }
+    'ui:field': 'rangeSlider',
+  },
+  countryWithInteractiveRegion: {
+    'ui:field': 'countryWithInteractiveRegion',
+  },
 }

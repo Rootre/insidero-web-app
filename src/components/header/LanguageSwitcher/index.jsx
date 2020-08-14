@@ -18,7 +18,6 @@ function LanguageSwitcher () {
         <li key={lang}>
           <button
             onClick={() => i18n.changeLanguage(lang)}
-            style={{fontWeight: lang === i18n.language ? 700 : 400}}
           >
             {langs[lang]}
           </button>

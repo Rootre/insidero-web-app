@@ -7,7 +7,6 @@ import { CodeLists } from '@/contexts/codeLists'
 import schema from '@/components/searchForm/schema'
 import { withTranslation } from '@/i18n/instance'
 import flattenFormData from '@/rjsf/flattenFormData'
-import getCurrentRegions from '@/components/searchForm/utils/getCurrentRegions'
 
 const fetchOffers = data => {
   const getParams = new URLSearchParams(data).toString()
@@ -16,7 +15,7 @@ const fetchOffers = data => {
 }
 
 const SearchForm = ({ t }) => {
-  const {countries, regions} = useContext(CodeLists)
+  const {countries} = useContext(CodeLists)
   const [formData, setFormData] = useState({})
   const [mutate, {isLoading, data}] = useMutation(fetchOffers)
 
@@ -25,19 +24,10 @@ const SearchForm = ({ t }) => {
     return mutate(flattenFormData(formData))
   }, [])
 
-  const onChange = useCallback(({ formData }) => {
-    const currentRegions = getCurrentRegions(regions, formData)
-    const hasRegion = currentRegions.find(({general: {id}}) => formData.region === id)
-
-    setFormData({
-      ...formData,
-      region: hasRegion ? formData.region : currentRegions.length > 0 ? currentRegions[0].general.id : 0,
-    })
-  }, [])
+  const onChange = useCallback(({ formData }) => setFormData(formData), [])
 
   const formSchema = schema(t, {
     countries,
-    regions: getCurrentRegions(regions, formData),
   })
 
   return (

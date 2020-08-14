@@ -27,7 +27,8 @@
     "react-bootstrap": "^1.3.0",
     "react-dom": "16.13.1",
     "react-jsonschema-form": "^1.8.1",
-    "react-query": "^2.5.13"
+    "react-query": "^2.5.13",
+    "react-simple-maps": "^2.1.2"
   },
   "devDependencies": {
     "typescript": "^3.9.7"

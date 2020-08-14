@@ -9,16 +9,6 @@ import space from './params/space'
 import type from './params/type'
 import priceSell from '@/components/searchForm/params/priceSell'
 
-function _getRegion (t, data) {
-  if (data.regions.length === 0) {
-    return {}
-  }
-
-  return {
-    region: region(t, data),
-  }
-}
-
 const schema = (t, data) => ({
   title: t('title'),
   description: t('description'),
@@ -30,8 +20,13 @@ const schema = (t, data) => ({
     active: active(t),
     type: type(t),
     offer: offer(t),
-    country: country(t, data),
-    ..._getRegion(t, data),
+    countryWithInteractiveRegion: {
+      type: 'object',
+      properties: {
+        country: country(t, data),
+        region: region(t),
+      },
+    },
     limit,
     priceSell: priceSell(t),
     space: space(t),

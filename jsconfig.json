@@ -5,6 +5,7 @@
       "@/components/*": ["components/*"],
       "@/contexts/*": ["contexts/*"],
       "@/consts/*": ["consts/*"],
+      "@/data/*": ["../data/*"],
       "@/i18n/*": ["../i18n/*"],
       "@/mongoose/*": ["../mongoose/*"],
       "@/prototypes/*": ["prototypes/*"],
