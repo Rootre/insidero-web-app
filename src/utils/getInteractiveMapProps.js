@@ -13,6 +13,13 @@ const mapIdToProps = {
       scale: 4800,
     }
   },
+  3: {
+    map: 'slovakia',
+    projectionConfig: {
+      rotate: [-19.7, -48.7, 0],
+      scale: 12000,
+    }
+  },
 }
 
 function getInteractiveMapProps (id) {
