@@ -23,7 +23,7 @@ const CountryWithInteractiveRegion = function (props) {
   const currentRegions = regions.filter(({ country: { id } }) => id === state.country)
   const mapProps = getInteractiveMapProps(state.country)
 
-  console.log('currentRegions', currentRegions.map(({general: {id, name}}) => ({id, name})))
+  // console.log('currentRegions', currentRegions.map(({general: {id, name}}) => ({id, name})))
 
   const changeState = newState => {
     setState(newState)
@@ -72,7 +72,6 @@ const CountryWithInteractiveRegion = function (props) {
       </FieldTemplate>
       {mapProps ? (
         <InteractiveMap
-          selectedAreas={[state.region]}
           clickFactory={regionClickFactory}
           isSelected={isSelected}
           {...mapProps}

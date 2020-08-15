@@ -6,7 +6,7 @@ import Region from './Region'
 
 const url = '/api/topojson'
 
-const InteractiveMap = ({ clickFactory, isSelected, map, projectionConfig, selectedAreas }) => {
+const InteractiveMap = ({ clickFactory, isSelected, map, projectionConfig }) => {
   return (
     <ComposableMap
       projection="geoAzimuthalEqualArea"
@@ -18,7 +18,6 @@ const InteractiveMap = ({ clickFactory, isSelected, map, projectionConfig, selec
           <Region
             key={geo.rsmKey}
             geo={geo}
-            selectedAreas={selectedAreas}
             clickFactory={clickFactory}
             selected={isSelected(geo)}
           />
