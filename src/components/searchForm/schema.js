@@ -10,7 +10,7 @@ import type from './params/type'
 import priceSell from '@/components/searchForm/params/priceSell'
 import city from '@/components/searchForm/params/city'
 
-const schema = (t, data) => ({
+const schema = t => ({
   title: t('title'),
   description: t('description'),
   type: 'object',
@@ -24,7 +24,7 @@ const schema = (t, data) => ({
     countryWithInteractiveRegion: {
       type: 'object',
       properties: {
-        country: country(t, data),
+        country: country(t),
         region: region(t),
         city: city(t),
       },

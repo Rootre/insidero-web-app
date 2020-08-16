@@ -1,12 +1,12 @@
-import { useCallback, useContext, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { useMutation } from 'react-query'
 import { searchOffer } from '@/consts/urls'
 import OfferList from '@/components/searchForm/OfferList'
 import Form from '@/components/searchForm/Form'
-import { CodeLists } from '@/contexts/codeLists'
 import schema from '@/components/searchForm/schema'
 import { withTranslation } from '@/i18n/instance'
 import { flattenFormData, omitUndefined } from '@/rjsf/utils/dataOptimization'
+import Button from '@material-ui/core/Button'
 
 const fetchOffers = data => {
   const getParams = new URLSearchParams(data).toString()
@@ -15,20 +15,15 @@ const fetchOffers = data => {
 }
 
 const SearchForm = ({ t }) => {
-  const {countries} = useContext(CodeLists)
   const [formData, setFormData] = useState({})
   const [mutate, {isLoading, data}] = useMutation(fetchOffers)
+  const formSchema = useMemo(() => schema(t),[])
 
   const onSubmit = useCallback(({ formData }) => {
     setFormData(formData)
     return mutate(omitUndefined(flattenFormData(formData)))
   }, [])
-
   const onChange = useCallback(({ formData }) => setFormData(formData), [])
-
-  const formSchema = schema(t, {
-    countries,
-  })
 
   return (
     <>
@@ -36,9 +31,18 @@ const SearchForm = ({ t }) => {
         onSubmit={onSubmit}
         onChange={onChange}
         formData={formData}
-        isLoading={isLoading}
-        buttonText={t('sendButton')}
         schema={formSchema}
+        button={(
+          <Button
+            color={'primary'}
+            variant={'contained'}
+            size={'large'}
+            type={'submit'}
+            disabled={isLoading}
+          >
+            {t('sendButton')}
+          </Button>
+        )}
       />
       <OfferList data={data}/>
     </>

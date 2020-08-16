@@ -1,6 +1,6 @@
 import InteractiveMap from '@/components/core/InteractiveMap'
 import getInteractiveMapProps from '@/utils/getInteractiveMapProps'
-import { useContext, useState } from 'react'
+import { useContext } from 'react'
 import { CodeLists } from '@/contexts/codeLists'
 import Select from '@/components/mui/Select'
 
@@ -11,21 +11,15 @@ import Select from '@/components/mui/Select'
  * @constructor
  */
 const CountryWithInteractiveRegion = function (props) {
-  const { name, schema: { properties: { country, region } } } = props
+  const { formData, name, schema: { properties: { country, region } } } = props
 
-  const {regions} = useContext(CodeLists)
-  const [state, setState] = useState({
-    country: country.default,
-    region: undefined,
-    city: undefined,
-  })
+  const {countries, regions} = useContext(CodeLists)
 
-  const currentRegions = regions.filter(({ country: { id } }) => id === state.country)
-  const countryMapProps = getInteractiveMapProps(state.country)
-  const regionMapProps = getInteractiveMapProps(`${state.country}.${state.region}`)
+  const currentRegions = regions.filter(({ country: { id } }) => id === formData.country)
+  const countryMapProps = getInteractiveMapProps(formData.country)
+  const regionMapProps = getInteractiveMapProps(`${formData.country}.${formData.region}`)
 
   const changeState = newState => {
-    setState(newState)
     props.onChange(newState)
   }
   const handleCountryChange = country => changeState({
@@ -34,22 +28,26 @@ const CountryWithInteractiveRegion = function (props) {
     city: undefined,
   })
   const handleRegionChange = region => changeState({
-    ...state,
+    ...formData,
     region,
     city: undefined,
 
   })
-  const handleRegionClick = ({ properties: { NAME_0: region } }) => changeState({
-    ...state,
-    region: parseInt(region) || undefined,
-    city: undefined,
-  })
+  const handleRegionClick = ({ properties: { NAME_0: region } }) => {
+    region = parseInt(region)
+
+    changeState({
+      ...formData,
+      region: !region || formData.region === region ? undefined : region,
+      city: undefined,
+    })
+  }
   const handleCityClick = ({ properties: { VARNAME_2: city } }) => changeState({
-    ...state,
+    ...formData,
     city: parseInt(city) || undefined,
   })
-  const isRegionSelected = ({ properties: { NAME_0 } }) => !isNaN(NAME_0) && state.region === parseInt(NAME_0)
-  const isCitySelected = ({ properties: { VARNAME_2 } }) => !isNaN(VARNAME_2) && state.city === parseInt(VARNAME_2)
+  const isRegionSelected = ({ properties: { NAME_0 } }) => !isNaN(NAME_0) && formData.region === parseInt(NAME_0)
+  const isCitySelected = ({ properties: { VARNAME_2 } }) => !isNaN(VARNAME_2) && formData.city === parseInt(VARNAME_2)
 
   return (
     <div>
@@ -58,14 +56,14 @@ const CountryWithInteractiveRegion = function (props) {
         id={`${name}_country`}
         label={country.title}
         options={{
-          enumOptions: country.enum.map((value, index) => ({
+          enumOptions: countries.map(({general: {id: value, name: label}}) => ({
             value,
-            label: country.enumNames[index],
+            label,
           }))
         }}
         onChange={handleCountryChange}
         schema={country}
-        value={state.country}
+        value={formData.country}
       />
       {countryMapProps ? (
         <InteractiveMap
@@ -86,12 +84,12 @@ const CountryWithInteractiveRegion = function (props) {
           }}
           onChange={handleRegionChange}
           schema={region}
-          value={state.region}
+          value={formData.region}
         />
       )}
-      {state.region && (
+      {formData.region && (
         <div>
-          Region: {currentRegions.find(({general: {id}}) => id === state.region).general.name} <span onClick={() => changeState({...state, region: undefined, city: undefined})}>&times;</span>
+          Region: {currentRegions.find(({general: {id}}) => id === formData.region).general.name} <span onClick={() => handleRegionChange()}>&times;</span>
         </div>
       )}
       {regionMapProps && (

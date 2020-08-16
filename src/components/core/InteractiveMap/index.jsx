@@ -18,14 +18,13 @@ const getMap = map => async () => {
 }
 
 const InteractiveMap = ({ areaClick, width = 800, height = 500, isSelected, labelKey = 'NAME_1', map, projectionConfig }) => {
-  // TODO: optimize re-renders
   // TODO: optimize maps to be more lightweight
   const {
     isError,
     data,
     error,
     isFetching,
-  } = useQuery(map, getMap(map))
+  } = useQuery(map, getMap(map), { refetchOnWindowFocus: false })
 
   if (isFetching) {
     return <Loader style={{ paddingTop: `${(height / width) * 100}%` }}/>
