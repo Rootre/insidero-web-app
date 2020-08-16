@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useMutation } from 'react-query'
 import { searchOffer } from '@/consts/urls'
 import OfferList from '@/components/searchForm/OfferList'
@@ -15,15 +15,30 @@ const fetchOffers = data => {
 }
 
 const SearchForm = ({ t }) => {
+  const [offers, setOffers] = useState([])
   const [formData, setFormData] = useState({})
   const [mutate, {isLoading, data}] = useMutation(fetchOffers)
   const formSchema = useMemo(() => schema(t),[])
 
   const onSubmit = useCallback(({ formData }) => {
+    setOffers([])
     setFormData(formData)
     return mutate(omitUndefined(flattenFormData(formData)))
   }, [])
   const onChange = useCallback(({ formData }) => setFormData(formData), [])
+
+  const fetchMore = (limit, offset) => mutate({
+    ...omitUndefined(flattenFormData(formData)),
+    limit,
+    offset,
+  })
+
+  useEffect(() => {
+    if (!data) {
+      return
+    }
+    setOffers(offers => ([...offers, ...Object.values(data.results)]))
+  }, [data])
 
   return (
     <>
@@ -44,7 +59,11 @@ const SearchForm = ({ t }) => {
           </Button>
         )}
       />
-      <OfferList data={data}/>
+      <OfferList
+        isLoading={isLoading}
+        fetchMore={fetchMore}
+        offers={offers}
+      />
     </>
   )
 }
