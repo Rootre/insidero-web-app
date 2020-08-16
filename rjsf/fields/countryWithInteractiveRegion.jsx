@@ -1,9 +1,8 @@
-import SelectWidget from '@/components/mui/SelectWidget'
 import InteractiveMap from '@/components/core/InteractiveMap'
 import getInteractiveMapProps from '@/utils/getInteractiveMapProps'
 import { useContext, useState } from 'react'
-import { FieldTemplate } from '@rjsf/material-ui'
 import { CodeLists } from '@/contexts/codeLists'
+import Select from '@/components/mui/Select'
 
 /**
  * With fallback to selectbox
@@ -18,12 +17,12 @@ const CountryWithInteractiveRegion = function (props) {
   const [state, setState] = useState({
     country: country.default,
     region: undefined,
+    city: undefined,
   })
 
   const currentRegions = regions.filter(({ country: { id } }) => id === state.country)
-  const mapProps = getInteractiveMapProps(state.country)
-
-  // console.log('currentRegions', currentRegions.map(({general: {id, name}}) => ({id, name})))
+  const countryMapProps = getInteractiveMapProps(state.country)
+  const regionMapProps = getInteractiveMapProps(`${state.country}.${state.region}`)
 
   const changeState = newState => {
     setState(newState)
@@ -32,76 +31,76 @@ const CountryWithInteractiveRegion = function (props) {
   const handleCountryChange = country => changeState({
     country,
     region: undefined,
+    city: undefined,
   })
   const handleRegionChange = region => changeState({
     ...state,
     region,
+    city: undefined,
+
   })
-  const regionClickFactory = ({ properties: { INSIDERO_ID: region } }) => () => changeState({
+  const handleRegionClick = ({ properties: { NAME_0: region } }) => changeState({
     ...state,
-    region,
+    region: parseInt(region) || undefined,
+    city: undefined,
   })
-  const isSelected = ({ properties: { INSIDERO_ID } }) => typeof INSIDERO_ID === 'number' && state.region === INSIDERO_ID
+  const handleCityClick = ({ properties: { VARNAME_2: city } }) => changeState({
+    ...state,
+    city: parseInt(city) || undefined,
+  })
+  const isRegionSelected = ({ properties: { NAME_0 } }) => !isNaN(NAME_0) && state.region === parseInt(NAME_0)
+  const isCitySelected = ({ properties: { VARNAME_2 } }) => !isNaN(VARNAME_2) && state.city === parseInt(VARNAME_2)
 
   return (
     <div>
-      <FieldTemplate>
-        <SelectWidget
-          id={`${name}_country`}
-          schema={country}
-          uiSchema={{}}
-          value={state.country}
-          required={props.required}
-          disabled={props.disabled}
-          readonly={props.readonly}
-          autofocus={props.autofocus}
+      <Select
+        props={props}
+        id={`${name}_country`}
+        label={country.title}
+        options={{
+          enumOptions: country.enum.map((value, index) => ({
+            value,
+            label: country.enumNames[index],
+          }))
+        }}
+        onChange={handleCountryChange}
+        schema={country}
+        value={state.country}
+      />
+      {countryMapProps ? (
+        <InteractiveMap
+          areaClick={handleRegionClick}
+          isSelected={isRegionSelected}
+          {...countryMapProps}
+        />
+      ) : currentRegions.length > 0 && (
+        <Select
+          props={props}
+          id={`${name}_region`}
+          label={region.title}
           options={{
-            enumOptions: country.enum.map((value, index) => ({
+            enumOptions: currentRegions.map(({general: {id: value, name: label}}) => ({
               value,
-              label: country.enumNames[index],
+              label,
             }))
           }}
-          onChange={handleCountryChange}
-          formContext={props.formContext}
-          onBlur={props.onBlur}
-          onFocus={props.onFocus}
-          label={country.title}
-          multiple={false}
-          rawErrors={props.rawErrors}
+          onChange={handleRegionChange}
+          schema={region}
+          value={state.region}
         />
-      </FieldTemplate>
-      {mapProps ? (
+      )}
+      {state.region && (
+        <div>
+          Region: {currentRegions.find(({general: {id}}) => id === state.region).general.name} <span onClick={() => changeState({...state, region: undefined, city: undefined})}>&times;</span>
+        </div>
+      )}
+      {regionMapProps && (
         <InteractiveMap
-          clickFactory={regionClickFactory}
-          isSelected={isSelected}
-          {...mapProps}
+          areaClick={handleCityClick}
+          isSelected={isCitySelected}
+          labelKey={'NAME_2'}
+          {...regionMapProps}
         />
-      ) : (
-        <FieldTemplate>
-          <SelectWidget
-            id={`${name}_region`}
-            schema={region}
-            uiSchema={{}}
-            value={state.region}
-            required={props.required}
-            disabled={props.disabled}
-            readonly={props.readonly}
-            autofocus={props.autofocus}
-            options={{
-              enumOptions: currentRegions.map(({general: {id: value, name: label}}) => ({
-                value,
-                label,
-              }))
-            }}
-            onChange={handleRegionChange}
-            formContext={props.formContext}
-            onBlur={props.onBlur}
-            onFocus={props.onFocus}
-            label={region.title}
-            multiple={false}
-            rawErrors={props.rawErrors}
-          />
-        </FieldTemplate>
       )}
     </div>
   )

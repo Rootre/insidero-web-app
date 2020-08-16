@@ -6,7 +6,7 @@ import Form from '@/components/searchForm/Form'
 import { CodeLists } from '@/contexts/codeLists'
 import schema from '@/components/searchForm/schema'
 import { withTranslation } from '@/i18n/instance'
-import flattenFormData from '@/rjsf/flattenFormData'
+import { flattenFormData, omitUndefined } from '@/rjsf/utils/dataOptimization'
 
 const fetchOffers = data => {
   const getParams = new URLSearchParams(data).toString()
@@ -21,7 +21,7 @@ const SearchForm = ({ t }) => {
 
   const onSubmit = useCallback(({ formData }) => {
     setFormData(formData)
-    return mutate(flattenFormData(formData))
+    return mutate(omitUndefined(flattenFormData(formData)))
   }, [])
 
   const onChange = useCallback(({ formData }) => setFormData(formData), [])

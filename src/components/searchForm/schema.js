@@ -8,6 +8,7 @@ import region from './params/region'
 import space from './params/space'
 import type from './params/type'
 import priceSell from '@/components/searchForm/params/priceSell'
+import city from '@/components/searchForm/params/city'
 
 const schema = (t, data) => ({
   title: t('title'),
@@ -25,6 +26,7 @@ const schema = (t, data) => ({
       properties: {
         country: country(t, data),
         region: region(t),
+        city: city(t),
       },
     },
     limit,

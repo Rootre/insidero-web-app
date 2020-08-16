@@ -29,7 +29,8 @@
     "react-dom": "16.13.1",
     "react-jsonschema-form": "^1.8.1",
     "react-query": "^2.5.13",
-    "react-simple-maps": "^2.1.2"
+    "react-simple-maps": "^2.1.2",
+    "react-spring": "^8.0.27"
   },
   "devDependencies": {
     "typescript": "^3.9.7"

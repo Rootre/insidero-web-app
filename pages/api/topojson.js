@@ -1,5 +1,3 @@
-// https://github.com/deldersveld/topojson/tree/master/countries
-
 export default async (req, res) => {
   const { query: { country } } = req
 
@@ -17,6 +15,6 @@ export default async (req, res) => {
     res.json({ ...data })
   } catch (e) {
     res.statusCode = 500
-    res.json({ error: e.message })
+    res.json({ error: 'Map cannot be found' })
   }
 }
