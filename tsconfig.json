@@ -23,6 +23,7 @@
       "@/contexts/*": ["contexts/*"],
       "@/consts/*": ["consts/*"],
       "@/data/*": ["../data/*"],
+      "@/features/*": ["features/*"],
       "@/i18n/*": ["../i18n/*"],
       "@/mongoose/*": ["../mongoose/*"],
       "@/prototypes/*": ["prototypes/*"],

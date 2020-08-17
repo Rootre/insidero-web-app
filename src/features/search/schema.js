@@ -7,8 +7,8 @@ import room from './params/room'
 import region from './params/region'
 import space from './params/space'
 import type from './params/type'
-import priceSell from '@/components/searchForm/params/priceSell'
-import city from '@/components/searchForm/params/city'
+import priceSell from '@/features/search/params/priceSell'
+import city from '@/features/search/params/city'
 
 const schema = t => ({
   title: t('title'),

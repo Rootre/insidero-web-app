@@ -2,7 +2,7 @@ import { memo } from 'react'
 import Form from '@rjsf/material-ui'
 import styled from '@emotion/styled'
 
-import uiSchema from '@/components/searchForm/uiSchema'
+import uiSchema from '@/features/search/uiSchema'
 import fields from '@/rjsf/fields'
 import widgets from '@/rjsf/widgets'
 

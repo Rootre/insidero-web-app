@@ -2,13 +2,12 @@ import Head from 'next/head'
 
 import { withTranslation } from '@/i18n/instance'
 
-import SearchForm from '@/components/searchForm/SearchForm'
+import Search from '@/features/search/Search'
 import LanguageSwitcher from '@/components/header/LanguageSwitcher'
-import { listCountry, listNeighborhood, listRegion } from '@/consts/urls'
+import { listCountry, listRegion } from '@/consts/urls'
 import { CodeLists } from '@/contexts/codeLists'
-import parseNeighborhoods from '@/utils/parseNeighborhoods'
 
-function Home ({ countries, neighborhoods, regions, t }) {
+function Home ({ countries, regions, t }) {
   return (
     <CodeLists.Provider value={{
       countries,
@@ -22,7 +21,7 @@ function Home ({ countries, neighborhoods, regions, t }) {
 
       <h1>{t('h1')}</h1>
 
-      <SearchForm/>
+      <Search/>
     </CodeLists.Provider>
   )
 }
@@ -38,16 +37,10 @@ export async function getStaticProps (context) {
   .then(data => Object.values(data.results))
   .catch(err => err.message)
 
-  const neighborhoods = await fetch(listNeighborhood)
-  .then(data => data.json())
-  .then(data => Object.values(data.results))
-  .catch(err => err.message)
-
   return {
     props: {
       namespacesRequired: ['common', 'searchForm'],
       countries,
-      neighborhoods: parseNeighborhoods(neighborhoods),
       regions,
     },
   }
