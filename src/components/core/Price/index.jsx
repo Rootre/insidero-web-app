@@ -10,9 +10,7 @@ const PriceComponent = ({ value, t }) => {
   const currency = new Currency(currencyName, currencyISO, currencyRate)
   const price = new Price(value, currency)
 
-  return (
-    <strong>{price.getFormattedValue()}</strong>
-  )
+  return price.getFormattedValue()
 }
 
 export default withTranslation('price')(PriceComponent)

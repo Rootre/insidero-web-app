@@ -9,6 +9,7 @@
       "@/features/*": ["features/*"],
       "@/i18n/*": ["../i18n/*"],
       "@/mongoose/*": ["../mongoose/*"],
+      "@/mui/*": ["../mui/*"],
       "@/prototypes/*": ["prototypes/*"],
       "@/public/*": ["../public/*"],
       "@/rjsf/*": ["../rjsf/*"],

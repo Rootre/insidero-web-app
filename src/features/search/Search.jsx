@@ -16,12 +16,14 @@ const fetchOffers = data => {
 
 const SearchForm = ({ t }) => {
   const [offers, setOffers] = useState([])
+  const [offersInfo, setOffersInfo] = useState({})
   const [formData, setFormData] = useState({})
   const [mutate, {isLoading, data}] = useMutation(fetchOffers)
   const formSchema = useMemo(() => schema(t),[])
 
   const onSubmit = useCallback(({ formData }) => {
     setOffers([])
+    setOffersInfo({})
     setFormData(formData)
     return mutate(omitUndefined(flattenFormData(formData)))
   }, [])
@@ -38,6 +40,7 @@ const SearchForm = ({ t }) => {
       return
     }
     setOffers(offers => ([...offers, ...Object.values(data.results)]))
+    setOffersInfo(data.info)
   }, [data])
 
   return (
@@ -63,6 +66,7 @@ const SearchForm = ({ t }) => {
         isLoading={isLoading}
         fetchMore={fetchMore}
         offers={offers}
+        offersInfo={offersInfo}
       />
     </>
   )

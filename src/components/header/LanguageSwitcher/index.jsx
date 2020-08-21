@@ -1,10 +1,6 @@
-import styled from '@emotion/styled'
+import ButtonGroup from '@material-ui/core/ButtonGroup'
+import Button from '@material-ui/core/Button'
 import { i18n, withTranslation } from '@/i18n/instance'
-
-const List = styled.ul`
-  float: right;
-  list-style: none;
-`
 
 const langs = {
   cs: 'Čeština',
@@ -13,17 +9,17 @@ const langs = {
 
 function LanguageSwitcher () {
   return (
-    <List>
+    <ButtonGroup style={{float: 'right'}} variant={'contained'} orientation={'vertical'}>
       {Object.keys(langs).map(lang => (
-        <li key={lang}>
-          <button
-            onClick={() => i18n.changeLanguage(lang)}
-          >
-            {langs[lang]}
-          </button>
-        </li>
+        <Button
+          key={lang}
+          size={'small'}
+          onClick={() => i18n.changeLanguage(lang)}
+        >
+          {langs[lang]}
+        </Button>
       ))}
-    </List>
+    </ButtonGroup>
   )
 }
 

@@ -4,5 +4,9 @@
   "space": "Rozměry",
   "price": "Cena",
   "inactive": "Neaktivní",
-  "floor": "Patro"
+  "floor": "Patro",
+  "estimateRent": "Odhadované nájemné",
+  "daysOnMarket": "Dní na trhu",
+  "returnIn": "Návratnost za",
+  "details": "Detaily nabídky"
 }

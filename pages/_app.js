@@ -2,6 +2,7 @@
 import { appWithTranslation } from '@/i18n/instance'
 import { polyfill } from 'es6-promise'
 import 'isomorphic-fetch'
+import '../static/global.scss'
 
 polyfill()
 

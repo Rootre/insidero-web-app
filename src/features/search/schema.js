@@ -12,15 +12,15 @@ import city from '@/features/search/params/city'
 
 const schema = t => ({
   title: t('title'),
-  description: t('description'),
+  // description: t('description'),
   type: 'object',
   required: [
     'type',
   ],
   properties: {
     active: active(t),
-    type: type(t),
     offer: offer(t),
+    type: type(t),
     countryWithInteractiveRegion: {
       type: 'object',
       properties: {

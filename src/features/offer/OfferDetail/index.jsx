@@ -1,75 +1,74 @@
-import styled from '@emotion/styled'
-import getOr from 'lodash/fp/getOr'
 import flow from 'lodash/fp/flow'
-import WeekendIcon from '@material-ui/icons/Weekend'
-import ApartmentIcon from '@material-ui/icons/Apartment'
-import HomeIcon from '@material-ui/icons/Home'
-import SelectAllIcon from '@material-ui/icons/SelectAll'
+import getOr from 'lodash/fp/getOr'
+import Box from '@material-ui/core/Box'
+import Button from '@material-ui/core/Button'
+import Grid from '@material-ui/core/Grid'
 
 import { withTranslation } from '@/i18n/instance'
 import PriceComponent from '@/components/core/Price'
-
-const Wrapper = styled.div`
-  background: ${({ active }) => active ? 'white' : 'lightgray'};
-  border-bottom: 1px solid gray;
-  margin: 1em 0;
-  padding: 1em 0;
-`
-
-const Inactive = styled.p`
-  float: right;
-  font-weight: 700;
-`
+import Amenities from '@/features/offer/OfferDetail/Amenities'
+import { formatNumber } from '@/prototypes/Price'
 
 // selectors
 const getAmenities = getOr({}, 'amenities')
-const getFloor = flow(getAmenities, getOr('', 'floor'))
-const getGeneral = getOr({}, 'general')
 const getSpace = getOr({}, 'space')
 const getFullSpace = flow(getSpace, getOr('', 'room.full'))
-const getUsableSpace = flow(getSpace, getOr(0, 'usable.max'))
-const getPrice = getOr({}, 'price')
-
-const iconMap = {
-  flat: WeekendIcon,
-  house: HomeIcon,
-  land: SelectAllIcon,
-  commercial: ApartmentIcon,
-}
+const getCurrentPrice = type => getOr(0, `price.${type}.current`)
+const getPricePerSquareMeter = type => getOr(0, `price.${type}.perSquareMeter`)
 
 function OfferDetail ({ data, t }) {
-  const { general, price } = data
+  const { general } = data
   const { active, url, offer, type } = general
   const fullSpace = getFullSpace(data)
-  const usableSpace = getUsableSpace(data)
-  const floor = getFloor(data)
+  const space = getSpace(data)
+  const maxSpace = space.hasOwnProperty(type) ? getOr(0, `space.${type}.max`)(data) : getOr(0, 'space.usable.max')(data)
+  const currentPrice = getCurrentPrice(offer)(data)
+  const pricePerSquareMeter = getPricePerSquareMeter(offer)(data)
+  const amenities = getAmenities(data)
 
   console.log('OfferDetail', data)
 
-  const currentPrice = price && price.hasOwnProperty(offer)
-    ? price[offer].current
-    : 0
-
-  const Icon = iconMap.hasOwnProperty(type) ? iconMap[type] : null
-
   return (
-    <Wrapper active={active}>
-      {!active && <Inactive>{t('inactive')}</Inactive>}
-      <dl>
-        <dt>{t('type')}</dt>
-        <dd><Icon color={'primary'}/> {t(`offerDetailType:${type}`)}</dd>
-        <dt>{t('floor')}</dt>
-        <dd>{floor}</dd>
-        <dt>{t('rooms')}</dt>
-        <dd>{fullSpace}</dd>
-        <dt>{t('space')}</dt>
-        <dd>{usableSpace} m<sup>2</sup></dd>
-        <dt>{t('price')}</dt>
-        <dd><PriceComponent value={currentPrice}/></dd>
-        <dt>Link</dt>
-        <dd><a href={url} target={'_blank'}>{url}</a></dd>
-      </dl>
-    </Wrapper>
+    <Box
+      p={2}
+      my={3}
+      border={1}
+      borderRadius={5}
+      borderColor={'primary.main'}
+      bgcolor={'grey.50'}
+      active={active}
+    >
+      <Button style={{ float: 'right' }} variant={'outlined'} color={'secondary'} href={url}>{t('details')}</Button>
+      <h3 style={{marginTop: 0}}>
+        {t(`offerDetailType:${type}`)} {fullSpace ? `${fullSpace}, ` : ''}{formatNumber(maxSpace)} m<sup>2</sup>
+      </h3>
+      <Grid container>
+        <Grid xs={5} container>
+          <Grid xs={4} item>{t('price')}</Grid>
+          <Grid xs={8} item>
+            <PriceComponent value={currentPrice}/>{' '}
+            (<PriceComponent value={pricePerSquareMeter}/> m<sup>2</sup>)
+          </Grid>
+        </Grid>
+        <Grid xs={5} container>
+          <Grid xs={4} item>{t('estimateRent')}</Grid>
+          <Grid xs={8} item>?</Grid>
+        </Grid>
+      </Grid>
+      <Grid container>
+        <Grid xs={5} container>
+          <Grid xs={4} item>{t('daysOnMarket')}</Grid>
+          <Grid xs={8} item>?</Grid>
+        </Grid>
+        <Grid xs={5} container>
+          <Grid xs={4} item>{t('returnIn')}</Grid>
+          <Grid xs={8} item>?</Grid>
+        </Grid>
+      </Grid>
+      <Box borderTop={1} mt={2} pt={2} borderColor={'text.disabled'}>
+        <Amenities amenities={amenities}/>
+      </Box>
+    </Box>
   )
 }
 

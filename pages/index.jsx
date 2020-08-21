@@ -19,8 +19,6 @@ function Home ({ countries, regions, t }) {
       </Head>
       <LanguageSwitcher/>
 
-      <h1>{t('h1')}</h1>
-
       <Search/>
     </CodeLists.Provider>
   )

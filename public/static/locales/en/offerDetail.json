@@ -4,5 +4,9 @@
   "space": "Space",
   "price": "Price",
   "inactive": "Inactive",
-  "floor": "Floor"
+  "floor": "Floor",
+  "estimateRent": "Estimate rent",
+  "daysOnMarket": "Days on market",
+  "returnIn": "Return in",
+  "details": "Offer details"
 }

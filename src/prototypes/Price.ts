@@ -5,7 +5,7 @@ export interface IPrice {
   convert();
 }
 
-const formatNumber = (amount: number): string => {
+export const formatNumber = (amount: number): string => {
   // return amount.toString().split('').reverse().join('').match(/.{1,3}/g).join(' ').split('').reverse().join('')
   return amount.toString().split('').reverse().reduce((acc, value, index) => value + (index % 3 === 0 ? ' ' : '') + acc, '')
 }

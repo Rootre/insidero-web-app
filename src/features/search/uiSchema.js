@@ -1,6 +1,15 @@
 export default {
+  active: {
+    'ui:widget': 'hidden',
+  },
   limit: {
     'ui:widget': 'hidden',
+  },
+  offer: {
+    'ui:widget': 'hidden',
+  },
+  type: {
+    'ui:widget': 'chooseType',
   },
   priceSellMax: {
     'ui:widget': 'range',
