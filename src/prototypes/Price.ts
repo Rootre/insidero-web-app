@@ -18,7 +18,7 @@ function Price(value: number, currency: TCurrency): IPrice {
 }
 
 Price.prototype.getFormattedValue = function(): string {
-  return `${formatNumber(this.value * this.currency.rate)} ${this.currency.name}`
+  return `${formatNumber(Math.round(this.value * this.currency.rate))} ${this.currency.name}`
 }
 
 Price.prototype.convert = function (currency: TCurrency): number {

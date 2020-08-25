@@ -1,6 +1,9 @@
 const region = t => ({
-  type: 'number',
+  type: 'array',
   title: t('regionTitle'),
+  items: {
+    type: 'number',
+  }
 })
 
 export default region

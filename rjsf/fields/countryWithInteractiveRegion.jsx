@@ -3,6 +3,7 @@ import getInteractiveMapProps from '@/utils/getInteractiveMapProps'
 import { useContext } from 'react'
 import { CodeLists } from '@/contexts/codeLists'
 import Select from '@/components/mui/Select'
+import Chip from '@material-ui/core/Chip'
 
 /**
  * With fallback to selectbox
@@ -11,58 +12,59 @@ import Select from '@/components/mui/Select'
  * @constructor
  */
 const CountryWithInteractiveRegion = function (props) {
-  const { formData, name, schema: { properties: { country, region } } } = props
+  const { formData, name, schema: { properties: { country: schemaCountry, region: schemaRegion } } } = props
 
-  const {countries, regions} = useContext(CodeLists)
+  const { countries, regions } = useContext(CodeLists)
 
   const currentRegions = regions.filter(({ country: { id } }) => id === formData.country)
   const countryMapProps = getInteractiveMapProps(formData.country)
-  const regionMapProps = getInteractiveMapProps(`${formData.country}.${formData.region}`)
 
-  const changeState = newState => {
-    props.onChange(newState)
-  }
-  const handleCountryChange = country => changeState({
+  const handleCountryChange = country => props.onChange({
     country,
     region: undefined,
     city: undefined,
   })
-  const handleRegionChange = region => changeState({
-    ...formData,
-    region,
-    city: undefined,
 
+  // Selectbox
+  const handleRegionChange = region => props.onChange({
+    ...formData,
+    region: [region], // TODO: make select multiple
+    city: undefined,
   })
+  // Map
   const handleRegionClick = ({ properties: { NAME_0: region } }) => {
     region = parseInt(region)
+    const newRegions = formData.region ? formData.region.slice() : []
+    const index = newRegions.indexOf(region)
 
-    changeState({
+    if (index > -1) {
+      newRegions.splice(index, 1)
+    } else {
+      newRegions.push(region)
+    }
+
+    props.onChange({
       ...formData,
-      region: !region || formData.region === region ? undefined : region,
-      city: undefined,
+      region: newRegions,
     })
   }
-  const handleCityClick = ({ properties: { VARNAME_2: city } }) => changeState({
-    ...formData,
-    city: parseInt(city) || undefined,
-  })
-  const isRegionSelected = ({ properties: { NAME_0 } }) => !isNaN(NAME_0) && formData.region === parseInt(NAME_0)
-  const isCitySelected = ({ properties: { VARNAME_2 } }) => !isNaN(VARNAME_2) && formData.city === parseInt(VARNAME_2)
+  const isRegionSelected = ({ properties: { NAME_0 } }) => !isNaN(NAME_0) && formData.region && formData.region.indexOf(parseInt(NAME_0)) > -1
 
   return (
     <div>
       <Select
         props={props}
         id={`${name}_country`}
-        label={country.title}
+        label={schemaCountry.title}
         options={{
-          enumOptions: countries.map(({general: {id: value, name: label}}) => ({
-            value,
-            label,
-          }))
+          enumOptions: countries.map(
+            ({ general: { id: value, name: label } }) => ({
+              value,
+              label,
+            })),
         }}
         onChange={handleCountryChange}
-        schema={country}
+        schema={schemaCountry}
         value={formData.country}
       />
       {countryMapProps ? (
@@ -75,30 +77,27 @@ const CountryWithInteractiveRegion = function (props) {
         <Select
           props={props}
           id={`${name}_region`}
-          label={region.title}
+          label={schemaRegion.title}
           options={{
-            enumOptions: currentRegions.map(({general: {id: value, name: label}}) => ({
-              value,
-              label,
-            }))
+            enumOptions: currentRegions.map(
+              ({ general: { id: value, name: label } }) => ({
+                value,
+                label,
+              })),
           }}
           onChange={handleRegionChange}
-          schema={region}
+          schema={schemaRegion}
           value={formData.region}
         />
       )}
-      {formData.region && (
+      {formData.region && formData.region.length > 0 && (
         <div>
-          Region: {currentRegions.find(({general: {id}}) => id === formData.region).general.name} <span onClick={() => handleRegionChange()}>&times;</span>
+          Region: {currentRegions.filter(
+          ({ general: { id } }) => formData.region.indexOf(id) > -1)
+        .map(({ general: { id, name } }) => (
+          <Chip label={name} onDelete={() => handleRegionClick({properties: { NAME_0: id }})} color={'primary'}/>
+        ))}
         </div>
-      )}
-      {regionMapProps && (
-        <InteractiveMap
-          areaClick={handleCityClick}
-          isSelected={isCitySelected}
-          labelKey={'NAME_2'}
-          {...regionMapProps}
-        />
       )}
     </div>
   )

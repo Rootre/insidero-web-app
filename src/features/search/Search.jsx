@@ -4,27 +4,23 @@ import { searchOffer } from '@/consts/urls'
 import OfferList from '@/features/offer/OfferList'
 import Form from '@/features/search/Form'
 import schema from '@/features/search/schema'
-import { withTranslation } from '@/i18n/instance'
+import { i18n, withTranslation } from '@/i18n/instance'
 import { flattenFormData, omitUndefined } from '@/rjsf/utils/dataOptimization'
 import Button from '@material-ui/core/Button'
-
-const fetchOffers = data => {
-  const getParams = new URLSearchParams(data).toString()
-
-  return fetch(`${searchOffer}?${getParams}`).then(data => data.json())
-}
+import basicFetch from '@/utils/basicFetch'
 
 const SearchForm = ({ t }) => {
+  const [mutate, {isLoading, data}] = useMutation(basicFetch(searchOffer, 'GET'))
   const [offers, setOffers] = useState([])
   const [offersInfo, setOffersInfo] = useState({})
   const [formData, setFormData] = useState({})
-  const [mutate, {isLoading, data}] = useMutation(fetchOffers)
-  const formSchema = useMemo(() => schema(t),[])
+  const formSchema = useMemo(() => schema(t),[i18n.language])
 
   const onSubmit = useCallback(({ formData }) => {
     setOffers([])
     setOffersInfo({})
     setFormData(formData)
+    console.log(formData)
     return mutate(omitUndefined(flattenFormData(formData)))
   }, [])
   const onChange = useCallback(({ formData }) => setFormData(formData), [])

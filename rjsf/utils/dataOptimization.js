@@ -9,7 +9,11 @@ export function flattenFormData (formData) {
   const output = {}
 
   Object.keys(formData).forEach((key) => {
-    if (typeof formData[key] === 'object') {
+    if (Array.isArray(formData[key])) {
+      Object.assign(output, {
+        [key]: formData[key].join(','),
+      })
+    } else if (typeof formData[key] === 'object') {
       Object.assign(output, {
         ...flattenFormData(formData[key]),
       })
