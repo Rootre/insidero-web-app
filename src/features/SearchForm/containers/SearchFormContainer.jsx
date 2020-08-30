@@ -18,6 +18,7 @@ const SearchFormContainer = ({t}) => {
   const formik = useFormik({
     initialValues: {
       type: 'flat',
+      country: 1,
     },
     onSubmit: formData => {
       return console.log(formData)

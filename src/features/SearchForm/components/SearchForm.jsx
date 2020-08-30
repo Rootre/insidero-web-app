@@ -2,11 +2,13 @@ import { Formik, Form, Field, ErrorMessage } from 'formik'
 import Button from '@material-ui/core/Button'
 
 import OfferType from '@/components/formik/OfferType'
+import InteractivePlace from '@/components/formik/InteractivePlace/InteractivePlace'
 
 const SearchForm = ({ formik, isLoading, t }) => {
   return (
     <form onSubmit={formik.handleSubmit}>
       <OfferType formik={formik}/>
+      <InteractivePlace formik={formik}/>
       <Button
         color={'primary'}
         variant={'contained'}
