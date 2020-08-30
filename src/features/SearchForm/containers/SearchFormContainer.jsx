@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useFormik } from 'formik'
 import { useMutation } from 'react-query'
 
@@ -6,7 +6,6 @@ import { withTranslation } from '@/i18n/instance'
 import basicFetch from '@/utils/basicFetch'
 import { searchOffer } from '@/consts/urls'
 import OfferList from '@/features/offer/OfferList'
-import { flattenFormData, omitUndefined } from '@/rjsf/utils/dataOptimization'
 
 import SearchForm from '../components/SearchForm'
 
@@ -18,8 +17,10 @@ const SearchFormContainer = ({t}) => {
 
   const formik = useFormik({
     initialValues: {
+      type: 'flat',
     },
-    onSubmit: values => {
+    onSubmit: formData => {
+      return console.log(formData)
       setOffers([])
       setOffersInfo({})
       setFormData(formData)
