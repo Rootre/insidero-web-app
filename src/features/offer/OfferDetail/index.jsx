@@ -26,7 +26,7 @@ function OfferDetail ({ data, t }) {
   const pricePerSquareMeter = getPricePerSquareMeter(offer)(data)
   const amenities = getAmenities(data)
 
-  console.log('OfferDetail', data)
+  // console.log('OfferDetail', data)
 
   return (
     <Box

@@ -7,10 +7,12 @@ import { formatNumber } from '@/prototypes/Price'
 
 import OfferDetail from '../OfferDetail'
 
-function OfferList ({ offers, offersInfo, fetchMore, isLoading, t }) {
+function OfferList ({ offers, offersInfo, fetchMore, chips, isLoading, t }) {
   const [limit, setLimit] = useState(10)
   const [offset, setOffset] = useState(limit)
   const classes = useCenteredFlex()
+
+  console.log('chips', chips)
 
   if (offers.length === 0) {
     return null

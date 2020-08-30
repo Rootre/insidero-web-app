@@ -1,6 +1,7 @@
 const space = t => ({
   type: 'object',
   title: t('spaceTitle'),
+  getValue: (spaceMin, spaceMax) => `${spaceMin} - ${spaceMax} m2`,
   properties: {
     spaceMin: {
       type: 'number',

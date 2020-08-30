@@ -95,7 +95,7 @@ const CountryWithInteractiveRegion = function (props) {
           Region: {currentRegions.filter(
           ({ general: { id } }) => formData.region.indexOf(id) > -1)
         .map(({ general: { id, name } }) => (
-          <Chip label={name} onDelete={() => handleRegionClick({properties: { NAME_0: id }})} color={'primary'}/>
+          <Chip key={id} label={name} onDelete={() => handleRegionClick({properties: { NAME_0: id }})} color={'primary'}/>
         ))}
         </div>
       )}

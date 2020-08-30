@@ -8,6 +8,8 @@ import { i18n, withTranslation } from '@/i18n/instance'
 import { flattenFormData, omitUndefined } from '@/rjsf/utils/dataOptimization'
 import Button from '@material-ui/core/Button'
 import basicFetch from '@/utils/basicFetch'
+import getChipsFromFormData from '@/rjsf/utils/getChipsFromFormData'
+import uiSchema from '@/features/search/uiSchema'
 
 const SearchForm = ({ t }) => {
   const [mutate, {isLoading, data}] = useMutation(basicFetch(searchOffer, 'GET'))
@@ -20,7 +22,6 @@ const SearchForm = ({ t }) => {
     setOffers([])
     setOffersInfo({})
     setFormData(formData)
-    console.log(formData)
     return mutate(omitUndefined(flattenFormData(formData)))
   }, [])
   const onChange = useCallback(({ formData }) => setFormData(formData), [])
@@ -61,6 +62,7 @@ const SearchForm = ({ t }) => {
       <OfferList
         isLoading={isLoading}
         fetchMore={fetchMore}
+        chips={getChipsFromFormData(formData, formSchema, uiSchema)}
         offers={offers}
         offersInfo={offersInfo}
       />

@@ -11,12 +11,6 @@ export default {
   type: {
     'ui:widget': 'chooseType',
   },
-  priceSellMax: {
-    'ui:widget': 'range',
-  },
-  priceSellMin: {
-    'ui:widget': 'range',
-  },
   room: {
     'ui:widget': 'range',
   },

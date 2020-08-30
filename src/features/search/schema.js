@@ -23,6 +23,7 @@ const schema = t => ({
     type: type(t),
     countryWithInteractiveRegion: {
       type: 'object',
+      getValue: (country, region) => region ? `${region.join(', ')}` : '',
       properties: {
         country: country(t),
         region: region(t),
