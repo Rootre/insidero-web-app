@@ -31,7 +31,7 @@ const SearchFormContainer = ({t}) => {
       setOffers([])
       setOffersInfo({})
       setFormData(formData)
-      return mutate(formData)
+      return mutate(omitUndefined(formData))
     },
   })
 
