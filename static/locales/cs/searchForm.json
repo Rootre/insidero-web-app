@@ -17,5 +17,6 @@
   "floorTitle": "Patro",
   "roomTitle": "Počet pokojů",
   "spaceTitle": "Výměra (m2)",
-  "sendButton": "Vyhledat"
+  "sendButton": "Vyhledat",
+  "noRestriction": "Nemám omezení"
 }
