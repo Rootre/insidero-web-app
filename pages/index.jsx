@@ -22,7 +22,7 @@ function Home ({ countries, regions, t }) {
       <LanguageSwitcher/>
 
       <SearchFormContainer/>
-      <Search/>
+      {/*<Search/>*/}
     </CodeLists.Provider>
   )
 }

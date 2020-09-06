@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { memo, useState } from 'react'
 import Button from '@material-ui/core/Button'
 import Container from '@material-ui/core/Container'
 import { useCenteredFlex } from '@/mui/container'
@@ -45,4 +45,4 @@ function OfferList ({ offers, offersInfo, fetchMore, isLoading, t }) {
   )
 }
 
-export default withTranslation('offerList')(OfferList)
+export default withTranslation('offerList')(memo(OfferList))

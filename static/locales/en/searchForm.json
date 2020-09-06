@@ -17,5 +17,6 @@
   "floorTitle": "Floor",
   "roomTitle": "Number of rooms in unit",
   "spaceTitle": "Space (m2)",
-  "sendButton": "Search"
+  "sendButton": "Search",
+  "noRestriction": "No restriction"
 }

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useFormik } from 'formik'
 import { useMutation } from 'react-query'
 
@@ -8,6 +8,7 @@ import { searchOffer } from '@/consts/urls'
 import OfferList from '@/features/offer/OfferList'
 
 import SearchForm from '../components/SearchForm'
+import { omitUndefined } from '@/utils/dataOptimization'
 
 const SearchFormContainer = ({t}) => {
   const [mutate, {isLoading, data}] = useMutation(basicFetch(searchOffer, 'GET'))
@@ -19,13 +20,18 @@ const SearchFormContainer = ({t}) => {
     initialValues: {
       type: 'flat',
       country: 1,
+      limit: 10,
+      active: true,
+      priceSellMin: 0,
+      priceSellMax: 20000000,
+      spaceMin: 0,
+      spaceMax: 200,
     },
     onSubmit: formData => {
-      return console.log(formData)
       setOffers([])
       setOffersInfo({})
       setFormData(formData)
-      mutate(formData)
+      return mutate(formData)
     },
   })
 
