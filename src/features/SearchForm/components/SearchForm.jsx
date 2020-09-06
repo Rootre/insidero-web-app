@@ -13,6 +13,7 @@ const StyledForm = styled.div`
 const SearchForm = ({ formik, isLoading, t }) => {
   return (
     <StyledForm>
+      <h1>{t('title')}</h1>
       <form onSubmit={formik.handleSubmit}>
         <OfferType formik={formik}/>
         <InteractivePlace formik={formik}/>

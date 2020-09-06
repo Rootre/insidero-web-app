@@ -2,7 +2,6 @@ import Head from 'next/head'
 
 import { withTranslation } from '@/i18n/instance'
 
-import Search from '@/features/search/Search'
 import LanguageSwitcher from '@/components/header/LanguageSwitcher'
 import { listCountry, listRegion } from '@/consts/urls'
 import { CodeLists } from '@/contexts/codeLists'
@@ -22,7 +21,6 @@ function Home ({ countries, regions, t }) {
       <LanguageSwitcher/>
 
       <SearchFormContainer/>
-      {/*<Search/>*/}
     </CodeLists.Provider>
   )
 }

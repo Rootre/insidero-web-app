@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useFormik } from 'formik'
 import { useMutation } from 'react-query'
 
@@ -47,11 +47,11 @@ const SearchFormContainer = ({t}) => {
     return errors;
   }
 
-  const fetchMore = (limit, offset) => mutate({
+  const fetchMore = useCallback((limit, offset) => mutate({
     ...formData,
     limit,
     offset,
-  })
+  }), [formData])
 
   useEffect(() => {
     if (!data) {
