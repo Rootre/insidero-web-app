@@ -41,6 +41,9 @@ const RangeSlider = ({
   const onChangeHandler = (__, values) => {
     setValue(values)
     setFormValues(values)
+    if (formik.hasOwnProperty('setChipLabel')) {
+      formik.setChipLabel([nameMin, nameMax].join(':'), [title, values.map(getValueText).join(' - ')])
+    }
   }
 
   const getValueText = val => displayLabel(val)

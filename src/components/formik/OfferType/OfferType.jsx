@@ -59,23 +59,29 @@ const options = [
 ]
 const name = 'type'
 
-const OfferType = function ({ formik, t }) {
-  const {handleChange, values} = formik
+const OfferType = function ({ formik, t, title }) {
+  const { handleChange, values } = formik
   const classes = useCenteredFlex()
   const { palette: { primary: { main: primaryColor }, text: { secondary: hoverColor } } } = useTheme()
 
-  const handleChangeFactory = value => () => handleChange({target: {name, value}})
+  const handleChangeFactory = value => () => {
+    handleChange({ target: { name, value } })
+    if (formik.hasOwnProperty('setChipLabel')) {
+      formik.setChipLabel(name, [title, options.find(option => option.value === value).getLabel(t)])
+    }
+  }
 
   return (
     <Grid container spacing={2}>
-      {options.map(({icon: Icon, getLabel, value}, index) => {
+      {options.map(({ icon: Icon, getLabel, value }, index) => {
         return (
           <Grid key={index} className={classes.root} item xs={6} sm={3}
                 onClick={handleChangeFactory(value)}>
             <ChooseItem hoverColor={hoverColor} color={value === values[name]
               ? primaryColor
               : 'transparent'}>
-              <SvgIcon component={Icon} color={'primary'} style={{ fontSize: 50 }}/>
+              <SvgIcon component={Icon} color={'primary'}
+                       style={{ fontSize: 50 }}/>
               <span>{getLabel(t)}</span>
             </ChooseItem>
           </Grid>

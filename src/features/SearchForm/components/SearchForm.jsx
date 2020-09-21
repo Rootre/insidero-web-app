@@ -15,7 +15,7 @@ const SearchForm = ({ formik, isLoading, t }) => {
     <StyledForm>
       <h1>{t('title')}</h1>
       <form onSubmit={formik.handleSubmit}>
-        <OfferType formik={formik}/>
+        <OfferType title={t('typeTitle')} formik={formik}/>
         <InteractivePlace formik={formik}/>
         <RangeSlider
           displayLabel={val => `${val / 1000000} mil.`}
@@ -29,6 +29,7 @@ const SearchForm = ({ formik, isLoading, t }) => {
           optional
         />
         <RangeSlider
+          displayLabel={val => `${val} m2`}
           formik={formik}
           max={200}
           min={0}
